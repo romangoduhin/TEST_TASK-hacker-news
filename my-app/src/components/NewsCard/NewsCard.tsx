@@ -20,9 +20,7 @@ function NewsCard({index, id}: IProps) {
 
     return news ?
         <NavLink to={`/news/${news.id}`}>
-            <Card shadow="lg" withBorder bg="white" sx={{
-                width: '100%',
-                height: '100px',
+            <Card w='100%' h='100px' shadow="lg" withBorder bg="white" sx={{
                 display: 'flex',
                 justifyContent: 'flex-start',
                 alignItems: 'center',
