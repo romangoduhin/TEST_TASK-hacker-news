@@ -2,8 +2,7 @@ import React, {useEffect} from 'react';
 import {getNewsIdsThunk} from "../../redux/thunks";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import NewsCard from "../../components/NewsCard/NewsCard";
-import styles from "./Main.module.scss";
-import { Stack } from '@mantine/core';
+import {Stack, Card, Center} from '@mantine/core';
 
 function Main() {
     const dispatch = useAppDispatch()
@@ -14,9 +13,13 @@ function Main() {
     }, []);
 
     return (
-        <Stack className={styles.stack}>
-            {newsIds.length ? newsIds.map(id => <NewsCard key={id} id={id}/>) : "Empty"}
-        </Stack>
+        <Center bg="yellow.1" p='lg'>
+            <Card w="80vw" bg="white" p="0">
+                <Stack spacing="2px">
+                    {newsIds.length ? newsIds.map((id, ind) => <NewsCard key={id} index={ind} id={id}/>) : "Empty"}
+                </Stack>
+            </Card>
+        </Center>
     );
 }
 
