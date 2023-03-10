@@ -33,7 +33,7 @@ function NewsCard({index, id}: IProps) {
             }}>
                 <Group>
                     <Avatar w="60px" h="60px" radius="xl">
-                        <Text fz="lg" color="grape.9" fw={500}>{index}</Text>
+                        <Text fz="lg" color="grape.9" fw={500}>{index + 1}</Text>
                     </Avatar>
 
                     <Flex
