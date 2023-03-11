@@ -22,6 +22,7 @@ export const newsSlice = createSlice({
             const news = action.payload;
 
             state.currentNews = news;
+            state.isSetting = false;
         },
         setIsSetting: (state, action: PayloadAction<boolean>) => {
             const bool = action.payload;

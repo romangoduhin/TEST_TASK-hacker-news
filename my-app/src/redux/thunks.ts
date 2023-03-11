@@ -17,13 +17,17 @@ export const getNewsIdsThunk = (isUpdate?: boolean) => async (dispatch: Dispatch
 
     dispatch(setNewsIds(slicedStoryIds));
 
-    isUpdate && showNotification('News Updated')
+    isUpdate && showNotification('News List Updated')
 };
 
-export const getNewsByIdThunk = async (id: number) => {
+export const getNewsByIdThunk = async (id: number, isUpdate?: boolean) => {
     const story = await newsAPI.getNewsById(id);
 
-    if (!story) return;
+    if (!story) {
+        return;
+    }
+
+    isUpdate && showNotification('News Updated')
 
     return story;
 };
