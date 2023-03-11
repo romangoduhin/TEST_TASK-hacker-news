@@ -2,22 +2,31 @@ import React, {useEffect} from 'react';
 import {getNewsIdsThunk} from "../../redux/thunks";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import NewsCard from "../../components/NewsCard/NewsCard";
-import styles from "./Main.module.scss";
-import { Stack } from '@mantine/core';
+import {Stack, Card, Center} from '@mantine/core';
+import Loader from "../../components/Loader/Loader";
 
 function Main() {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
+
     const {newsIds} = useAppSelector(state => state.news);
 
     useEffect(() => {
-        dispatch(getNewsIdsThunk())
+        dispatch(getNewsIdsThunk());
+
+        const interval = setInterval(() => {
+            dispatch(getNewsIdsThunk(true));
+        }, 60000);
+
+        return () => clearInterval(interval);
     }, []);
 
-    return (
-        <Stack className={styles.stack}>
-            {newsIds.length ? newsIds.map(id => <NewsCard key={id} id={id}/>) : "Empty"}
-        </Stack>
-    );
+    return newsIds.length ? <Center w="100%" h='100%'>
+        <Card w="80vw" bg="inherit" p="0">
+            <Stack spacing="2px">
+                {newsIds.map((id, ind) => <NewsCard key={id} index={ind} id={id}/>)}
+            </Stack>
+        </Card>
+    </Center> : <Center w="100%" h='calc(100vh - 70px)'><Loader/></Center>;
 }
 
 export default Main;

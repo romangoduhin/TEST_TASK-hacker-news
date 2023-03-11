@@ -1,11 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import {Card, Flex, Loader} from '@mantine/core';
-import styles from "./NewsCard.module.scss";
+import {Avatar, Divider, Group, Flex, Text, Card} from '@mantine/core';
 import {IProps, NewsState} from "./NewsCard.type";
 import {getNewsByIdThunk} from "../../redux/thunks";
+import {NavLink} from "react-router-dom";
+import {formatDate} from "../../helpers/formatDate";
+import Loader from "../Loader/Loader";
+import {setCurrentNews} from "../../redux/slices/newsSlice";
+import {useAppDispatch} from "../../redux/hooks";
 
-function NewsCard({id}: IProps) {
+function NewsCard({index, id}: IProps) {
+    const dispatch = useAppDispatch();
+
     const [news, setNews] = useState<NewsState>(null);
+
+    const newsId = news?.id;
+    const title = news?.title;
+    const author = news?.by;
+    const time = news?.time;
+    const rating = news?.score;
+
+    function handleClick() {
+        dispatch(setCurrentNews(news));
+    }
 
     async function setNewsData() {
         const data = await getNewsByIdThunk(id);
@@ -16,29 +32,41 @@ function NewsCard({id}: IProps) {
         setNewsData()
     }, [id]);
 
-    return (
-        <Card className={styles.card}>
-            {news ? <Flex
-                gap="lg"
-                justify="flex-start"
-                align="center"
-                direction="column"
-            >
-                <p>TITLE: {news.title}</p>
+    return <Card p='0' w='100%' h='100px' shadow="lg" bg="white"
+                 sx={{
+                     display: 'flex',
+                     justifyContent: 'flex-start',
+                     alignItems: 'center',
+                     flexDirection: 'row',
+                     '&:hover': {
+                         backgroundColor: '#F8F9FA'
+                     }
+                 }}>
+        {news ? <NavLink onClick={handleClick} to={`/news/${newsId}`}>
+            <Group p='sm' w="80vw">
+                <Avatar w="60px" h="60px" radius="xl">
+                    <Text fz="lg" color="grape.9" fw={500}>{index + 1}</Text>
+                </Avatar>
+
                 <Flex
                     gap="lg"
                     justify="flex-start"
-                    align="center"
-                    direction="row"
+                    align="flex-start"
+                    direction="column"
                 >
-                    <p>BY: {news.by}</p>
-                    <p> DATE: {(new Date(news.time * 1000)).toLocaleString()}</p>
+                    <Text fz="lg" fw={500}>{title}</Text>
+
+                    <Group>
+                        <Text fz="s">Author: {author}</Text>
+                        <Divider orientation="vertical"/>
+                        <Text fz="s"> {formatDate(time)}</Text>
+                        <Divider orientation="vertical"/>
+                        <Text fz="s"> {rating} point</Text>
+                    </Group>
                 </Flex>
-            </Flex>
-              : <Loader color="yellow" />
-            }
-        </Card>
-    );
+            </Group>
+        </NavLink> : <Loader/>}
+    </Card>
 }
 
 export default NewsCard;
