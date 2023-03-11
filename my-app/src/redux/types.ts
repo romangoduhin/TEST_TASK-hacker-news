@@ -14,5 +14,5 @@ export interface News {
     time: number,
     title: string,
     type: string,
-    url: string
+    url: string,
 }

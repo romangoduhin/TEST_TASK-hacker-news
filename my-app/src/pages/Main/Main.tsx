@@ -4,9 +4,9 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import NewsCard from "../../components/NewsCard/NewsCard";
 import {Stack, Card, Center} from '@mantine/core';
 
-
 function Main() {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
+
     const {newsIds} = useAppSelector(state => state.news);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ function Main() {
                 {newsIds.map((id, ind) => <NewsCard key={id} index={ind} id={id}/>)}
             </Stack>
         </Card>
-    </Center> : null
+    </Center> : null;
 }
 
 export default Main;

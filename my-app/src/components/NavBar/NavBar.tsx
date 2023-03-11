@@ -17,13 +17,20 @@ function NavBar() {
     return (
         <Box w='100vw' h='70px' bg='yellow.1'>
             <Group w='100%' h='100%' position="center" spacing="xl">
-                <NavLink to="/s">
+                <NavLink to="/">
                     <Button color="cyan" radius="xl" size="md" uppercase>
                         main page
                     </Button>
                 </NavLink>
 
-                <Button disabled={isSetting} loading={isSetting} color="lime" radius="xl" size="md" onClick={handleReloadNews} uppercase>
+                <Button disabled={isSetting}
+                        loading={isSetting}
+                        color="lime"
+                        radius="xl"
+                        size="md"
+                        onClick={handleReloadNews}
+                        uppercase
+                >
                     reload news
                 </Button>
             </Group>

@@ -18,15 +18,20 @@ function NewsCard({index, id}: IProps) {
         setNewsData()
     }, [id]);
 
-    return <Card w='100%' h='100px' shadow="lg" withBorder bg="white" sx={{
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        flexDirection: 'row',
-        '&:hover': {
-            backgroundColor: '#F8F9FA'
-        }
-    }}>
+    return <Card w='100%'
+                 h='100px'
+                 shadow="lg"
+                 withBorder
+                 bg="white"
+                 sx={{
+                     display: 'flex',
+                     justifyContent: 'flex-start',
+                     alignItems: 'center',
+                     flexDirection: 'row',
+                     '&:hover': {
+                         backgroundColor: '#F8F9FA'
+                     }
+                 }}>
         {news ? <NavLink to={`/news/${news.id}`}>
             <Group>
                 <Avatar w="60px" h="60px" radius="xl">
