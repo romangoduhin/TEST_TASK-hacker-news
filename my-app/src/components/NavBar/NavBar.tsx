@@ -30,7 +30,7 @@ function NavBar() {
 
         if (!news) {
             dispatch(setIsSetting(false));
-            return
+            return;
         }
         dispatch(setCurrentNews(news));
     }

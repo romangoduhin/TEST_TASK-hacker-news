@@ -13,6 +13,7 @@ function NewsCard({index, id}: IProps) {
 
     const [news, setNews] = useState<NewsState>(null);
 
+    const newsId = news?.id;
     const title = news?.title;
     const author = news?.by;
     const time = news?.time;
@@ -31,11 +32,7 @@ function NewsCard({index, id}: IProps) {
         setNewsData()
     }, [id]);
 
-    return <Card p='0'
-                 w='100%'
-                 h='100px'
-                 shadow="lg"
-                 bg="white"
+    return <Card p='0' w='100%' h='100px' shadow="lg" bg="white"
                  sx={{
                      display: 'flex',
                      justifyContent: 'flex-start',
@@ -45,7 +42,7 @@ function NewsCard({index, id}: IProps) {
                          backgroundColor: '#F8F9FA'
                      }
                  }}>
-        {news ? <NavLink onClick={handleClick} to={`/news/${news.id}`}>
+        {news ? <NavLink onClick={handleClick} to={`/news/${newsId}`}>
             <Group p='sm' w="80vw">
                 <Avatar w="60px" h="60px" radius="xl">
                     <Text fz="lg" color="grape.9" fw={500}>{index + 1}</Text>

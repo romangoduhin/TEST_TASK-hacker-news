@@ -13,7 +13,7 @@ function Comment({id}: IProps) {
 
     const reliesButtonText = opened ? "Collapse replies" : "Show replies";
 
-    const avatarText = comment?.by ? comment.by.slice(0, 2): '?';
+    const avatarText = comment?.by ? comment.by.slice(0, 2) : '?';
     const time = comment?.time;
     const author = comment?.by ? comment.by : 'Anonym';
     const replies = comment?.kids;
@@ -31,10 +31,10 @@ function Comment({id}: IProps) {
     if (!comment) return null;
 
     return <Card>
-        <Divider my="sm" />
+        <Divider my="sm"/>
         <Group mb='sm'>
             <Avatar w="50px" h="50px" radius="xl">{avatarText}</Avatar>
-            {time && <Text fw={500}>{ author + ' ' + formatDate(time)}</Text>}
+            {time && <Text fw={500}>{author + ' ' + formatDate(time)}</Text>}
         </Group>
 
         <Flex
