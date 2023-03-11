@@ -11,7 +11,7 @@ function NavBar() {
 
     function handleReloadNews() {
         dispatch(setIsSetting(true));
-        dispatch(getNewsIdsThunk());
+        dispatch(getNewsIdsThunk(true));
     }
 
     return (

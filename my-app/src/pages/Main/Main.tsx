@@ -10,7 +10,13 @@ function Main() {
     const {newsIds} = useAppSelector(state => state.news);
 
     useEffect(() => {
-        dispatch(getNewsIdsThunk())
+        dispatch(getNewsIdsThunk());
+
+        const interval = setInterval(() => {
+            dispatch(getNewsIdsThunk(true));
+        }, 60000);
+
+        return () => clearInterval(interval);
     }, []);
 
     return newsIds ? <Center w="100%" h='100%'>
