@@ -1,7 +1,7 @@
 import {Dispatch} from '@reduxjs/toolkit';
 import newsAPI from "../services/newsApi";
 import {setIsSetting, setNewsIds} from "./slices/newsSlice";
-import {notifications} from "@mantine/notifications";
+import {showNotification} from "../helpers/showNotification";
 
 export const getNewsIdsThunk = (isUpdate?: boolean) => async (dispatch: Dispatch) => {
     const arrSize = 100;
@@ -17,10 +17,7 @@ export const getNewsIdsThunk = (isUpdate?: boolean) => async (dispatch: Dispatch
 
     dispatch(setNewsIds(slicedStoryIds));
 
-    isUpdate && notifications.show({
-        title: 'News updated',
-        message: ''
-    })
+    isUpdate && showNotification('News Updated')
 };
 
 export const getNewsByIdThunk = async (id: number) => {
