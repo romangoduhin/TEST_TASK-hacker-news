@@ -3,7 +3,7 @@ import newsAPI from "../services/newsApi";
 import {setNewsIds} from "./slices/newsSlice";
 import {notifications} from "@mantine/notifications";
 
-export const getNewsIdsThunk = () => async (dispatch: Dispatch) => {
+export const getNewsIdsThunk = (isUpdate?: boolean) => async (dispatch: Dispatch) => {
     const arrSize = 100;
 
     const storyIds = await newsAPI.getNewsIds();
@@ -13,7 +13,7 @@ export const getNewsIdsThunk = () => async (dispatch: Dispatch) => {
 
     dispatch(setNewsIds(slicedStoryIds));
 
-    notifications.show({
+    isUpdate && notifications.show({
         title: 'News updated',
         message: ''
     })
