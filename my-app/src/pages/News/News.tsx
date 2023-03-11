@@ -6,6 +6,7 @@ import {formatDate} from "../../helpers/formatDate";
 import {getNewsByIdThunk} from "../../redux/thunks";
 import {setCurrentNews} from "../../redux/slices/newsSlice";
 import Comment from "../../components/Comment/Comment";
+import Loader from "../../components/Loader/Loader";
 
 function News() {
     const {id} = useParams();
@@ -19,7 +20,7 @@ function News() {
     const time = currentNews?.time;
     const author = currentNews?.by;
     const comments = currentNews?.kids;
-    const commentsCount = comments?.length;
+    const commentsCount = comments?.length ? comments.length : 0;
 
     async function setNewsData(id: number) {
         const data = await getNewsByIdThunk(id);
@@ -56,7 +57,7 @@ function News() {
             </Stack>
             }
         </Card>
-    </Center> : null;
+    </Center> : <Center w="100%" h='calc(100vh - 70px)'><Loader/></Center>;
 }
 
 export default News;

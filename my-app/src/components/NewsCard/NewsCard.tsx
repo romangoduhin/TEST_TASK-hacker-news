@@ -13,6 +13,11 @@ function NewsCard({index, id}: IProps) {
 
     const [news, setNews] = useState<NewsState>(null);
 
+    const title = news?.title;
+    const author = news?.by;
+    const time = news?.time;
+    const rating = news?.score;
+
     function handleClick() {
         dispatch(setCurrentNews(news));
     }
@@ -30,7 +35,6 @@ function NewsCard({index, id}: IProps) {
                  w='100%'
                  h='100px'
                  shadow="lg"
-                 withBorder
                  bg="white"
                  sx={{
                      display: 'flex',
@@ -53,16 +57,14 @@ function NewsCard({index, id}: IProps) {
                     align="flex-start"
                     direction="column"
                 >
-                    <Text fz="lg" fw={500}>{news.title}</Text>
+                    <Text fz="lg" fw={500}>{title}</Text>
 
                     <Group>
-                        <Text fz="s">Author: {news.by}</Text>
+                        <Text fz="s">Author: {author}</Text>
                         <Divider orientation="vertical"/>
-                        <Text fz="s"> {formatDate(news.time)}</Text>
+                        <Text fz="s"> {formatDate(time)}</Text>
                         <Divider orientation="vertical"/>
-                        <Text fz="s"> {news.kids?.length}</Text>
-                        <Divider orientation="vertical"/>
-                        <Text fz="s"> {news.score} point</Text>
+                        <Text fz="s"> {rating} point</Text>
                     </Group>
                 </Flex>
             </Group>
