@@ -27,3 +27,12 @@ export const getNewsByIdThunk = async (id: number) => {
 
     return story;
 };
+
+export const getCommentByIdThunk = async (id: number) => {
+    const comment = await newsAPI.getCommentById(id);
+
+    if (!comment) return;
+
+    return comment;
+};
+

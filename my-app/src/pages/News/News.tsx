@@ -1,11 +1,11 @@
-import {Center, Card, Text, Group, Stack} from '@mantine/core';
+import {Center, Card, Text, Stack, Group} from '@mantine/core';
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import Loader from "../../components/Loader/Loader";
 import {NavLink, useParams} from "react-router-dom";
 import {formatDate} from "../../helpers/formatDate";
 import {getNewsByIdThunk} from "../../redux/thunks";
 import {setCurrentNews} from "../../redux/slices/newsSlice";
+import Comment from "../../components/Comment/Comment";
 
 function News() {
     const {id} = useParams();
@@ -14,40 +14,49 @@ function News() {
 
     const {currentNews} = useAppSelector(state => state.news);
 
-    async function setNewsData(id: string) {
-        const numericId = +id;
+    const title = currentNews?.title;
+    const url = currentNews?.url;
+    const time = currentNews?.time;
+    const author = currentNews?.by;
+    const comments = currentNews?.kids;
+    const commentsCount = comments?.length;
 
-        const data = await getNewsByIdThunk(numericId);
+    async function setNewsData(id: number) {
+        const data = await getNewsByIdThunk(id);
 
         dispatch(setCurrentNews(data));
     }
 
     useEffect(() => {
         if (!currentNews && id) {
-            setNewsData(id)
+            setNewsData(+id)
         }
     }, []);
 
-    return (
-        <Center w="100vw" h="calc(100vh - 80px)">
-            {currentNews
-                ? <Card w="80vw" h="100%">
-                    <Group>
-                        <Stack>
-                            <NavLink to={currentNews.url}>
-                                <Text fz="20px" td="underline" weight={300}>{currentNews.url}</Text>
-                            </NavLink>
-                            <Text fz="30px" weight={500}>{currentNews.title}</Text>
-                            <Text fz="20px" weight={300}>{formatDate(currentNews.time)}</Text>
-                            <Text fz="20px" weight={300}>Author: {currentNews.by}</Text>
-                        </Stack>
+    if (!currentNews) return null;
 
-                    </Group>
-                </Card>
-                : <Loader/>
+    return currentNews ? <Center w="100%" h='100%'>
+        <Card w="80vw" h="100%" withBorder>
+            <Stack mb='lg'>
+                <Text fz="30px" weight={500}>{title}</Text>
+
+                {url && <NavLink to={url}>
+                    <Text c="blue.2" fz="20px" td="underline" weight={300}>Source: {url}</Text>
+                </NavLink>}
+
+                <Group position="center" spacing="xl" grow>
+                    {time && <Text fz="20px" weight={500}>Posted: {formatDate(time)}</Text>}
+                    {author && <Text fz="20px" weight={500}>Author: {author}</Text>}
+                </Group>
+            </Stack>
+
+            <Text fz="30px" weight={500}>Comments ({commentsCount}):</Text>
+            {comments && <Stack>
+                {comments.map(id => <Comment key={id} id={id}/>)}
+            </Stack>
             }
-        </Center>
-    );
+        </Card>
+    </Center> : null;
 }
 
 export default News;

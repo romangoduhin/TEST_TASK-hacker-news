@@ -21,6 +21,14 @@ const newsAPI = {
         } catch (err) {
             showNotification('Getting News Error')
         }
+    },
+    getCommentById: async (id: number) => {
+        try {
+            const response = await newsInstance.get(`/item/${id}.json?print=pretty`)
+            return response.data
+        } catch (err) {
+            showNotification('Getting News Error')
+        }
     }
 }
 

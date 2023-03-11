@@ -60,7 +60,7 @@ function NewsCard({index, id}: IProps) {
                         <Divider orientation="vertical"/>
                         <Text fz="s"> {formatDate(news.time)}</Text>
                         <Divider orientation="vertical"/>
-                        <Text fz="s"> {news.descedants}</Text>
+                        <Text fz="s"> {news.kids?.length}</Text>
                         <Divider orientation="vertical"/>
                         <Text fz="s"> {news.score} point</Text>
                     </Group>
