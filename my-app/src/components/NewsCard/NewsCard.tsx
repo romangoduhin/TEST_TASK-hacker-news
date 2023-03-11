@@ -5,9 +5,23 @@ import {getNewsByIdThunk} from "../../redux/thunks";
 import {NavLink} from "react-router-dom";
 import {formatDate} from "../../helpers/formatDate";
 import Loader from "../Loader/Loader";
+import {setCurrentNews} from "../../redux/slices/newsSlice";
+import {useAppDispatch} from "../../redux/hooks";
 
 function NewsCard({index, id}: IProps) {
+    const dispatch = useAppDispatch();
+
     const [news, setNews] = useState<NewsState>(null);
+
+    const newsId = news?.id;
+    const title = news?.title;
+    const author = news?.by;
+    const time = news?.time;
+    const rating = news?.score;
+
+    function handleClick() {
+        dispatch(setCurrentNews(news));
+    }
 
     async function setNewsData() {
         const data = await getNewsByIdThunk(id);
@@ -18,17 +32,18 @@ function NewsCard({index, id}: IProps) {
         setNewsData()
     }, [id]);
 
-    return <Card w='100%' h='100px' shadow="lg" withBorder bg="white" sx={{
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        flexDirection: 'row',
-        '&:hover': {
-            backgroundColor: '#F8F9FA'
-        }
-    }}>
-        {news ? <NavLink to={`/news/${news.id}`}>
-            <Group>
+    return <Card p='0' w='100%' h='100px' shadow="lg" bg="white"
+                 sx={{
+                     display: 'flex',
+                     justifyContent: 'flex-start',
+                     alignItems: 'center',
+                     flexDirection: 'row',
+                     '&:hover': {
+                         backgroundColor: '#F8F9FA'
+                     }
+                 }}>
+        {news ? <NavLink onClick={handleClick} to={`/news/${newsId}`}>
+            <Group p='sm' w="80vw">
                 <Avatar w="60px" h="60px" radius="xl">
                     <Text fz="lg" color="grape.9" fw={500}>{index + 1}</Text>
                 </Avatar>
@@ -39,14 +54,14 @@ function NewsCard({index, id}: IProps) {
                     align="flex-start"
                     direction="column"
                 >
-                    <Text fz="lg" fw={500}>{news.title}</Text>
+                    <Text fz="lg" fw={500}>{title}</Text>
 
                     <Group>
-                        <Text fz="s">author {news.by}</Text>
+                        <Text fz="s">Author: {author}</Text>
                         <Divider orientation="vertical"/>
-                        <Text fz="s"> {formatDate(news.time)}</Text>
+                        <Text fz="s"> {formatDate(time)}</Text>
                         <Divider orientation="vertical"/>
-                        <Text fz="s"> {news.score} point</Text>
+                        <Text fz="s"> {rating} point</Text>
                     </Group>
                 </Flex>
             </Group>

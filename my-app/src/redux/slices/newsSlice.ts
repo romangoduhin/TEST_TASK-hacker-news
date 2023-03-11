@@ -1,9 +1,10 @@
 import type {PayloadAction} from '@reduxjs/toolkit';
 import {createSlice} from '@reduxjs/toolkit';
-import {idsType, InitialState} from '../types';
+import {idsType, INews, InitialState} from '../types';
 
 const initialState: InitialState = {
     newsIds: [],
+    currentNews: null,
     isSetting: false
 };
 
@@ -15,7 +16,13 @@ export const newsSlice = createSlice({
             const idsArr = action.payload;
 
             state.newsIds = idsArr;
-            state.isSetting = false
+            state.isSetting = false;
+        },
+        setCurrentNews: (state, action: PayloadAction<INews>) => {
+            const news = action.payload;
+
+            state.currentNews = news;
+            state.isSetting = false;
         },
         setIsSetting: (state, action: PayloadAction<boolean>) => {
             const bool = action.payload;
@@ -25,5 +32,5 @@ export const newsSlice = createSlice({
     }
 });
 
-export const {setNewsIds, setIsSetting} = newsSlice.actions;
+export const {setNewsIds, setIsSetting, setCurrentNews} = newsSlice.actions;
 export default newsSlice.reducer;

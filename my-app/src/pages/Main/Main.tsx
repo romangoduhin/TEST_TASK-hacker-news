@@ -3,10 +3,11 @@ import {getNewsIdsThunk} from "../../redux/thunks";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import NewsCard from "../../components/NewsCard/NewsCard";
 import {Stack, Card, Center} from '@mantine/core';
-
+import Loader from "../../components/Loader/Loader";
 
 function Main() {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
+
     const {newsIds} = useAppSelector(state => state.news);
 
     useEffect(() => {
@@ -25,7 +26,7 @@ function Main() {
                 {newsIds.map((id, ind) => <NewsCard key={id} index={ind} id={id}/>)}
             </Stack>
         </Card>
-    </Center> : null
+    </Center> : <Center w="100%" h='calc(100vh - 70px)'><Loader/></Center>;
 }
 
 export default Main;

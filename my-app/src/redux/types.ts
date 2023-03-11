@@ -1,11 +1,12 @@
 export type idsType = Array<number>
 
 export interface InitialState {
-    newsIds: idsType;
-    isSetting: boolean
+    newsIds: idsType,
+    currentNews: null | INews,
+    isSetting: boolean,
 }
 
-export interface News {
+export interface INews {
     by: string,
     descendants: number,
     id: number,
@@ -14,5 +15,5 @@ export interface News {
     time: number,
     title: string,
     type: string,
-    url: string
+    url: string,
 }
