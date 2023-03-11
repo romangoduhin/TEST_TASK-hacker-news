@@ -1,13 +1,18 @@
 import {Box, Group, Button} from '@mantine/core';
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {getNewsIdsThunk} from "../../redux/thunks";
 import {setIsSetting} from "../../redux/slices/newsSlice";
 
 function NavBar() {
+    const location = useLocation();
+
     const dispatch = useAppDispatch();
+
     const {isSetting} = useAppSelector(state => state.news);
+
+    const isMainPage = location.pathname === '/';
 
     function handleReloadNews() {
         dispatch(setIsSetting(true));
@@ -23,7 +28,7 @@ function NavBar() {
                     </Button>
                 </NavLink>
 
-                <Button disabled={isSetting}
+                <Button disabled={isSetting || !isMainPage}
                         loading={isSetting}
                         color="lime"
                         radius="xl"

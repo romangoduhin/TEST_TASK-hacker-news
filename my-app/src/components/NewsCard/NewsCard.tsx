@@ -5,9 +5,17 @@ import {getNewsByIdThunk} from "../../redux/thunks";
 import {NavLink} from "react-router-dom";
 import {formatDate} from "../../helpers/formatDate";
 import Loader from "../Loader/Loader";
+import {setCurrentNews} from "../../redux/slices/newsSlice";
+import {useAppDispatch} from "../../redux/hooks";
 
 function NewsCard({index, id}: IProps) {
+    const dispatch = useAppDispatch();
+
     const [news, setNews] = useState<NewsState>(null);
+
+    function handleClick() {
+        dispatch(setCurrentNews(news));
+    }
 
     async function setNewsData() {
         const data = await getNewsByIdThunk(id);
@@ -18,7 +26,8 @@ function NewsCard({index, id}: IProps) {
         setNewsData()
     }, [id]);
 
-    return <Card w='100%'
+    return <Card p='0'
+                 w='100%'
                  h='100px'
                  shadow="lg"
                  withBorder
@@ -32,8 +41,8 @@ function NewsCard({index, id}: IProps) {
                          backgroundColor: '#F8F9FA'
                      }
                  }}>
-        {news ? <NavLink to={`/news/${news.id}`}>
-            <Group>
+        {news ? <NavLink onClick={handleClick} to={`/news/${news.id}`}>
+            <Group p='sm' w="80vw">
                 <Avatar w="60px" h="60px" radius="xl">
                     <Text fz="lg" color="grape.9" fw={500}>{index + 1}</Text>
                 </Avatar>
@@ -47,9 +56,11 @@ function NewsCard({index, id}: IProps) {
                     <Text fz="lg" fw={500}>{news.title}</Text>
 
                     <Group>
-                        <Text fz="s">author {news.by}</Text>
+                        <Text fz="s">Author: {news.by}</Text>
                         <Divider orientation="vertical"/>
                         <Text fz="s"> {formatDate(news.time)}</Text>
+                        <Divider orientation="vertical"/>
+                        <Text fz="s"> {news.descedants}</Text>
                         <Divider orientation="vertical"/>
                         <Text fz="s"> {news.score} point</Text>
                     </Group>
