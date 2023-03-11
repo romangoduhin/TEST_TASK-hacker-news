@@ -1,8 +1,8 @@
-export type newsType = Array<News>
 export type idsType = Array<number>
 
 export interface InitialState {
     newsIds: idsType;
+    isSetting: boolean
 }
 
 export interface News {
