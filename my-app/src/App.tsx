@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar/NavBar";
 
 function App() {
     return (
-        <ScrollArea w='100vw' h='100vh'>
+        <ScrollArea w='100vw' h='100vh' bg="yellow.1">
             <NavBar/>
             <Routes>
                 <Route path="/" element={<Main/>}/>

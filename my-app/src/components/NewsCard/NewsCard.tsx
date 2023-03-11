@@ -18,42 +18,40 @@ function NewsCard({index, id}: IProps) {
         setNewsData()
     }, [id]);
 
-    return news ?
-        <NavLink to={`/news/${news.id}`}>
-            <Card w='100%' h='100px' shadow="lg" withBorder bg="white" sx={{
-                display: 'flex',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-                flexDirection: 'row',
-                '&:hover': {
-                    backgroundColor: '#F8F9FA'
-                }
-            }}>
-                <Group>
-                    <Avatar w="60px" h="60px" radius="xl">
-                        <Text fz="lg" color="grape.9" fw={500}>{index + 1}</Text>
-                    </Avatar>
+    return <Card w='100%' h='100px' shadow="lg" withBorder bg="white" sx={{
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row',
+        '&:hover': {
+            backgroundColor: '#F8F9FA'
+        }
+    }}>
+        {news ? <NavLink to={`/news/${news.id}`}>
+            <Group>
+                <Avatar w="60px" h="60px" radius="xl">
+                    <Text fz="lg" color="grape.9" fw={500}>{index + 1}</Text>
+                </Avatar>
 
-                    <Flex
-                        gap="lg"
-                        justify="flex-start"
-                        align="flex-start"
-                        direction="column"
-                    >
-                        <Text fz="lg" fw={500}>{news.title}</Text>
+                <Flex
+                    gap="lg"
+                    justify="flex-start"
+                    align="flex-start"
+                    direction="column"
+                >
+                    <Text fz="lg" fw={500}>{news.title}</Text>
 
-                        <Group>
-                            <Text fz="s">author {news.by}</Text>
-                            <Divider orientation="vertical"/>
-                            <Text fz="s"> {formatDate(news.time)}</Text>
-                            <Divider orientation="vertical"/>
-                            <Text fz="s"> {news.score} point</Text>
-                        </Group>
-                    </Flex>
-                </Group>
-            </Card>
-        </NavLink>
-        : <Loader/>;
+                    <Group>
+                        <Text fz="s">author {news.by}</Text>
+                        <Divider orientation="vertical"/>
+                        <Text fz="s"> {formatDate(news.time)}</Text>
+                        <Divider orientation="vertical"/>
+                        <Text fz="s"> {news.score} point</Text>
+                    </Group>
+                </Flex>
+            </Group>
+        </NavLink> : <Loader/>}
+    </Card>
 }
 
 export default NewsCard;
