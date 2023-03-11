@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import NewsCard from "../../components/NewsCard/NewsCard";
 import {Stack, Card, Center} from '@mantine/core';
 
+
 function Main() {
     const dispatch = useAppDispatch()
     const {newsIds} = useAppSelector(state => state.news);
@@ -12,15 +13,13 @@ function Main() {
         dispatch(getNewsIdsThunk())
     }, []);
 
-    return (
-        <Center bg="yellow.1" p='lg'>
-            <Card w="80vw" bg="white" p="0">
-                <Stack spacing="2px">
-                    {newsIds.length ? newsIds.map((id, ind) => <NewsCard key={id} index={ind} id={id}/>) : "Empty"}
-                </Stack>
-            </Card>
-        </Center>
-    );
+    return newsIds ? <Center w="100%" h='100%'>
+        <Card w="80vw" bg="inherit" p="0">
+            <Stack spacing="2px">
+                {newsIds.map((id, ind) => <NewsCard key={id} index={ind} id={id}/>)}
+            </Stack>
+        </Card>
+    </Center> : null
 }
 
 export default Main;
