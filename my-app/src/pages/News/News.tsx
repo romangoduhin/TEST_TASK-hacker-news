@@ -34,8 +34,6 @@ function News() {
         }
     }, []);
 
-    if (!currentNews) return null;
-
     return currentNews ? <Center w="100%" h='100%'>
         <Card w="80vw" h="100%" withBorder>
             <Stack mb='lg'>
