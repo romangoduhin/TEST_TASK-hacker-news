@@ -20,7 +20,7 @@ function Main() {
         return () => clearInterval(interval);
     }, []);
 
-    return newsIds ? <Center w="100%" h='100%'>
+    return newsIds.length ? <Center w="100%" h='100%'>
         <Card w="80vw" bg="inherit" p="0">
             <Stack spacing="2px">
                 {newsIds.map((id, ind) => <NewsCard key={id} index={ind} id={id}/>)}
